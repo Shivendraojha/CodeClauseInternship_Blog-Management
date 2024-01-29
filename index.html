@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ecf0f1;
+        }
+
+        #blog-container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .blog-post {
+            padding: 20px;
+            border-bottom: 1px solid #d2dae2;
+            transition: background-color 0.3s;
+        }
+
+        .blog-post:hover {
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        .post-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .delete-button,
+        .interactive {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .delete-button:hover,
+        .interactive:hover {
+            background-color: #c0392b;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #add-post-form {
+            padding: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #add-post-form:hover {
+            background-color: #f0f0f0;
+        }
+
+        #add-post-form input,
+        #add-post-form textarea,
+        #add-post-form button {
+            margin-bottom: 15px;
+            color: #333;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .blog-post {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            #add-post-form input,
+            #add-post-form textarea,
+            #add-post-form button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="blog-container">
+    <div id="add-post-form">
+        <h2>Add New Post</h2>
+        <label for="post-title">Title:</label>
+        <input type="text" id="post-title" placeholder="Enter post title">
+        <label for="post-content">Content:</label>
+        <textarea id="post-content" placeholder="Enter post content"></textarea>
+        <button onclick="addPost()" class="interactive">Add Post</button>
+    </div>
+
+    <div class="blog-post">
+        <h2>Blog Post Title</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+        <div class="post-options">
+            <button class="interactive">Edit</button>
+            <button class="delete-button" onclick="deletePost(this)">Delete</button>
+        </div>
+    </div>
+
+    <div class="blog-post">
+        <h2>Another Post Title</h2>
+        <p>Curabitur in felis ut velit luctus auctor ac at mauris.</p>
+        <div class="post-options">
+            <button class="interactive">Edit</button>
+            <button class="delete-button" onclick="deletePost(this)">Delete</button>
+        </div>
+    </div>
+
+    <!-- Add more blog posts as needed -->
+
+</div>
+
+<script>
+    function addPost() {
+        var title = document.getElementById("post-title").value;
+        var content = document.getElementById("post-content").value;
+
+        if (title.trim() !== "" && content.trim() !== "") {
+            var blogContainer = document.getElementById("blog-container");
+            var newPost = document.createElement("div");
+            newPost.classList.add("blog-post");
+            newPost.innerHTML = '<h2>' + title + '</h2><p>' + content + '</p>' +
+                '<div class="post-options">' +
+                '<button class="interactive">Edit</button>' +
+                '<button class="delete-button" onclick="deletePost(this)">Delete</button>' +
+                '</div>';
+
+            blogContainer.insertBefore(newPost, blogContainer.childNodes[1]); // Insert new post above the form
+            document.getElementById("post-title").value = "";
+            document.getElementById("post-content").value = "";
+        }
+    }
+
+    function deletePost(button) {
+        var blogPost = button.parentElement.parentElement;
+        blogPost.remove();
+    }
+</script>
+
+</body>
+</html>
